@@ -19,6 +19,8 @@ Plugin 'taglist.vim'
 Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter' " http://vimawesome.com/plugin/vim-gutter
 Plugin 'wincent/command-t'      " fast buffer browser
+Plugin 'Yggdroot/indentLine'    " インデントの可視化
+
 " コード補完
 Plugin 'marcus/rsense'
 " 静的解析
@@ -38,7 +40,13 @@ Plugin 'tpope/vim-surround'
 
 " Helpの日本語化
 Plugin 'vim-jp/vimdoc-ja'
+if has('lua') " lua 
+  Plugin 'Shougo/neocomplete.vim'     " コード自動補完
+  Plugin 'Shougo/neosnippet'          " スニペットの自動補完
+  Plugin 'shougo/neosnippet-snippets' " スニペット集
+endif
 
+endif
 call vundle#end()
 filetype plugin indent on
 
@@ -172,7 +180,24 @@ if has("autocmd")
     \ endif
   augroup END
 endif
+" ---------------------------------------------------------
+" クリップボードからペースト時の自動インデントを無効
 "---------------------------------------------------------
+
+if &term =~ "xterm"
+  let &t_SI .= "\e[?2004h"
+  let &t_EI .= "\e[?2004l"
+  let &pastetoggle = "\e[201~"
+
+  function XTermPasteBegin(ret)
+    set paste
+    return a:ret
+  endfunction
+
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
+
+" ---------------------------------------------------------
 " その他 キーバインド
 "---------------------------------------------------------
 inoremap <silent> jj <ESC>:w<CR>:noh<CR>
