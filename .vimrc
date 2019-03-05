@@ -14,7 +14,7 @@ Plugin 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<c-t>'
 
 Plugin 'morhetz/gruvbox'
-Plugin 'scrooloose/nerdtree.git'
+Plugin 'scrooloose/nerdtree'
 nmap <silent><C-n> :NERDTreeToggle<CR>
 
 Plugin 'davidhalter/jedi-vim'
@@ -28,8 +28,6 @@ Plugin 'Yggdroot/indentLine'    " インデントの可視化
 
 " コード補完
 Plugin 'marcus/rsense'
-" 静的解析
-Plugin 'scrooloose/syntastic'
 " ドキュメント参照
 " Plugin 'thinca/vim-rf'
 " Plugin 'yuku-t/vim-rf-ri'
@@ -46,7 +44,7 @@ Plugin 'tpope/vim-surround'
 "---------------------------------------------------------
 " シンタックスチェック
 "---------------------------------------------------------
-Plugin 'scrooloose/syntastic.git'
+Plugin 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -77,7 +75,22 @@ Plugin 'vim-jp/vimdoc-ja'
 if has('lua') " lua 
   Plugin 'Shougo/neocomplete.vim'     " コード自動補完
   Plugin 'Shougo/neosnippet'          " スニペットの自動補完
-  Plugin 'shougo/neosnippet-snippets' " スニペット集
+  Plugin 'Shougo/neosnippet-snippets' " スニペット集
+  Plugin 'Shougo/vimproc'
+  Plugin 'Shougo/neocomplcache'
+  Plugin 'Shougo/neocomplcache-rsense'
+
+  let g:neocomplete#enable_at_startup               = 1
+  let g:neocomplete#auto_completion_start_length    = 3
+  let g:neocomplete#enable_ignore_case              = 1
+  let g:neocomplete#enable_smart_case               = 1
+  let g:neocomplete#enable_camel_case               = 1
+  let g:neocomplete#use_vimproc                     = 1
+  let g:neocomplete#sources#buffer#cache_limit_size = 1000000
+  let g:neocomplete#sources#tags#cache_limit_size   = 30000000
+  let g:neocomplete#enable_fuzzy_completion         = 1
+  let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
+
   let g:acp_enableAtStartup = 0
   let g:neocomplcache_enable_at_startup = 1
   let g:neocomplcache_enable_smart_case = 1
@@ -85,6 +98,7 @@ if has('lua') " lua
   let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
   let g:neocomplcache_enable_camel_case_completion = 1
   let g:neocomplcache_enable_underbar_completion = 1
+
   if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
   endif
@@ -96,6 +110,25 @@ if has('lua') " lua
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
 endif
+"----------------------------------------
+" gxでweb検索
+"----------------------------------------
+Plugin 'tyru/open-browser.vim'
+" open-browser {{{
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+" }}}
+"----------------------------------------
+" memo
+"----------------------------------------
+Plugin 'glidenote/memolist.vim'
+let g:memolist_path = expand('~/GoogleDrive/memolist')
+let g:memolist_gfixgrep = 1
+let g:memolist_unite = 1
+let g:memolist_unite_option = "-vertical -start-insert"
+nnoremap mn  :MemoNew<CR>
+nnoremap ml  :MemoList<CR>
+nnoremap mg  :MemoGrep<CR>
 
 call vundle#end()
 filetype plugin indent on
