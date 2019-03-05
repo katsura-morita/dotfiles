@@ -1,4 +1,5 @@
 "----------------------------------------
+
 " Vundle
 "----------------------------------------
 set nocompatible
@@ -9,9 +10,13 @@ call vundle#begin()
 " 導入したいプラグインを以下に列挙
 " Plugin '[Github Author]/[Github repo]' の形式で記入
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'mattn/emmet-vim'        
+Plugin 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<c-t>'
+
 Plugin 'morhetz/gruvbox'
 Plugin 'scrooloose/nerdtree.git'
+nmap <silent><C-n> :NERDTreeToggle<CR>
+
 Plugin 'davidhalter/jedi-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'groenewege/vim-less'
@@ -26,27 +31,72 @@ Plugin 'marcus/rsense'
 " 静的解析
 Plugin 'scrooloose/syntastic'
 " ドキュメント参照
-Plugin 'thinca/vim-rf'
-Plugin 'yuku-t/vim-rf-ri'
+" Plugin 'thinca/vim-rf'
+" Plugin 'yuku-t/vim-rf-ri'
 " メソッド定義元へジャンプ
 Plugin 'szw/vim-tags'
 " 自動で閉じる
 Plugin 'tpope/vim-endwise'
-
+" 一括コメントアウト
+Plugin 'tpope/vim-commentary'
 " ステータスラインの装飾
 Plugin 'itchyny/lightline.vim'
 " 括弧の差し替え、追加、削除
 Plugin 'tpope/vim-surround'
+"---------------------------------------------------------
+" シンタックスチェック
+"---------------------------------------------------------
+Plugin 'scrooloose/syntastic.git'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers=['rubocop']
+"---------------------------------------------------------
+" 括弧の自動入力
+"---------------------------------------------------------
+Plugin 'Townk/vim-autoclose'
+autocmd FileType ruby setlocal commentstring=#\ %s
+"---------------------------------------------------------
+" シンタックスハイライト
+"---------------------------------------------------------
+Plugin 'slim-template/vim-slim'
+Plugin 'othree/yajs.vim'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'posva/vim-vue'
+autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html
+highlight Search term=bold,reverse ctermfg=15 ctermbg=233 gui=bold,reverse
 
 " Helpの日本語化
 Plugin 'vim-jp/vimdoc-ja'
+
 if has('lua') " lua 
   Plugin 'Shougo/neocomplete.vim'     " コード自動補完
   Plugin 'Shougo/neosnippet'          " スニペットの自動補完
   Plugin 'shougo/neosnippet-snippets' " スニペット集
+  let g:acp_enableAtStartup = 0
+  let g:neocomplcache_enable_at_startup = 1
+  let g:neocomplcache_enable_smart_case = 1
+  let g:neocomplcache_min_syntax_length = 3
+  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+  let g:neocomplcache_enable_camel_case_completion = 1
+  let g:neocomplcache_enable_underbar_completion = 1
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  let g:rsenseHome = expand("~/.vim/bundle/rsense")
+  let g:rsenseUseOmniFunc = 1
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
 endif
 
-endif
 call vundle#end()
 filetype plugin indent on
 
@@ -138,8 +188,18 @@ set number
 set clipboard=unnamed,autoselect
 " Escの2回押しでハイライト消去
 nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
-" シンタックスハイライト
+"----------------------------------------------------------
+" 配色設定
+"----------------------------------------------------------
+set t_Co=256
+highlight StatusLine   cterm=NONE ctermfg=white ctermbg=233
+highlight StatusLineNC cterm=NONE ctermfg=white ctermbg=233
+highlight VertSplit    cterm=NONE ctermfg=233   ctermbg=233
+highlight Pmenu     ctermbg=4
+highlight PmenuSel  ctermbg=1
+highlight PmenuSbar ctermbg=4
 syntax on
+
 " すべての数を10進数として扱う
 set nrformats=
 " 行をまたいで移動
@@ -197,7 +257,17 @@ if &term =~ "xterm"
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
-" ---------------------------------------------------------
+"---------------------------------------------------------
 " その他 キーバインド
 "---------------------------------------------------------
+nnoremap <C-C> :w<CR>:SyntasticCheck<CR>
 inoremap <silent> jj <ESC>:w<CR>:noh<CR>
+inoremap <silent> <C-j> <ESC><ESC>
+inoremap <silent> <C-l> <CR>
+inoremap <silent> <C-;> <CR>
+nnoremap ; :
+nnoremap ' :
+nnoremap <silent> Z :w<CR>
+nnoremap <silent> <Esc><Esc> :noh<CR>
+nnoremap <Down> gj
+nnoremap <Up>   gk
