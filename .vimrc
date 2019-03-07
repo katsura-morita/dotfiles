@@ -41,6 +41,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'itchyny/lightline.vim'
 " 括弧の差し替え、追加、削除
 Plugin 'tpope/vim-surround'
+Plugin 'reireais/vim-cheatsheet'
+let g:cheatshet#cheat_file = '~/.cheatsheet.md'
 "---------------------------------------------------------
 " シンタックスチェック
 "---------------------------------------------------------
@@ -119,10 +121,10 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 " }}}
 "----------------------------------------
-" memo
+" memolist
 "----------------------------------------
 Plugin 'glidenote/memolist.vim'
-let g:memolist_path = expand('~/GoogleDrive/memolist')
+let g:memolist_path = expand('~/GoogleDrive/memo/')
 let g:memolist_gfixgrep = 1
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 let g:memolist_memo_date = "epoch"
