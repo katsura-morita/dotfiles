@@ -24,8 +24,10 @@ Plugin 'taglist.vim'
 Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter' " http://vimawesome.com/plugin/vim-gutter
 Plugin 'wincent/command-t'      " fast buffer browser
-Plugin 'Yggdroot/indentLine'    " インデントの可視化
-
+" インデントに色を付けて見やすくする
+Plugin 'nathanaelkane/vim-indent-guides'
+" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+let g:indent_guides_enable_on_vim_startup = 1
 " コード補完
 Plugin 'marcus/rsense'
 " ドキュメント参照
@@ -37,12 +39,43 @@ Plugin 'szw/vim-tags'
 Plugin 'tpope/vim-endwise'
 " 一括コメントアウト
 Plugin 'tpope/vim-commentary'
-" ステータスラインの装飾
-Plugin 'itchyny/lightline.vim'
+" ログファイルを色づけしてくれる
+Plugin 'vim-scripts/AnsiEsc.vim'
+" 行末の半角スペースを可視化
+Plugin 'bronson/vim-trailing-whitespace'
+"---------------------------------------------------------
+" ステータスラインの装飾 
+"---------------------------------------------------------
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ryanoasis/vim-devicons'
+let g:airline_theme = 'wombat'
+set laststatus=2
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
+let g:airline_section_c = '%t'
+let g:airline_section_x = '%{&filetype}'
+let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
+let g:airline#extensions#ale#error_symbol = ' '
+let g:airline#extensions#ale#warning_symbol = ' '
+let g:airline#extensions#default#section_truncate_width = {}
+let g:airline#extensions#whitespace#enabled = 1
+
 " 括弧の差し替え、追加、削除
 Plugin 'tpope/vim-surround'
-Plugin 'reireais/vim-cheatsheet'
-let g:cheatshet#cheat_file = '~/.cheatsheet.md'
+" 分割リサイズ
+Plugin 'simeji/winresizer'
+" リサイズ単位を1文字ずつに変更
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+" チートシート コマンドは:Cheat
+Plugin 'reireias/vim-cheatsheet'
+let g:cheatsheet#cheat_file = '~/.cheatsheet.md'
+" quickrun
+Plugin 'thinca/vim-quickrun'
+
 "---------------------------------------------------------
 " シンタックスチェック
 "---------------------------------------------------------
@@ -61,6 +94,8 @@ let g:syntastic_ruby_checkers=['rubocop']
 "---------------------------------------------------------
 Plugin 'Townk/vim-autoclose'
 autocmd FileType ruby setlocal commentstring=#\ %s
+Plugin 'alvan/vim-closetag'
+let g:closetag_filenames = '*.html, *.erb, *.ctp, *.vue'
 "---------------------------------------------------------
 " シンタックスハイライト
 "---------------------------------------------------------
