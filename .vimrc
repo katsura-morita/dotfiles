@@ -124,8 +124,13 @@ nmap gx <Plug>(openbrowser-smart-search)
 Plugin 'glidenote/memolist.vim'
 let g:memolist_path = expand('~/GoogleDrive/memolist')
 let g:memolist_gfixgrep = 1
-let g:memolist_unite = 1
-let g:memolist_unite_option = "-vertical -start-insert"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+let g:memolist_memo_date = "epoch"
+let g:memolist_memo_date = "%D %T"
+let g:memolist_prompt_tags = 1
+let g:memolist_prompt_categories = 1
+"let g:memolist_unite = 1
+"let g:memolist_unite_option = "-vertical -start-insert"
 nnoremap mn  :MemoNew<CR>
 nnoremap ml  :MemoList<CR>
 nnoremap mg  :MemoGrep<CR>
