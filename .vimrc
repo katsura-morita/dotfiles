@@ -24,10 +24,16 @@ Plugin 'taglist.vim'
 Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter' " http://vimawesome.com/plugin/vim-gutter
 Plugin 'wincent/command-t'      " fast buffer browser
+" 言語ごとのインデント
+
 " インデントに色を付けて見やすくする
 Plugin 'nathanaelkane/vim-indent-guides'
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
+" 奇数列、偶数列の色分け
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 " コード補完
 Plugin 'marcus/rsense'
 " ドキュメント参照
@@ -241,6 +247,8 @@ set shiftwidth=2
 set softtabstop=2
 " ファイル内にあるタブ文字の表示幅
 set tabstop=2
+" 言語ごとのインデントを~/.vimrcm/filetype.vimから読み込む
+filetype plugin indent on
 " ツールバーを非表示にする
 set guioptions-=T
 " yでコピーした時にクリップボードに入る
