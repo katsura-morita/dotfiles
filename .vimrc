@@ -10,7 +10,7 @@ call vundle#begin()
 " Plugin '[Github Author]/[Github repo]' の形式で記入
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/emmet-vim'
-let g:user_emmet_leader_key='<c-t>'
+let g:user_emmet_leader_key='<C-E>'
 
 Plugin 'morhetz/gruvbox'
 Plugin 'scrooloose/nerdtree'
