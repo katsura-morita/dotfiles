@@ -62,11 +62,7 @@ let g:airline#extensions#wordcount#enabled = 0
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
 let g:airline_section_c = '%t'
 let g:airline_section_x = '%{&filetype}'
-let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
-let g:airline#extensions#ale#error_symbol = ' '
-let g:airline#extensions#ale#warning_symbol = ' '
-let g:airline#extensions#default#section_truncate_width = {}
-let g:airline#extensions#whitespace#enabled = 1
+let g:airline_section_z = '%3l:%2v'
 
 " 括弧の差し替え、追加、削除
 Plugin 'tpope/vim-surround'
@@ -86,7 +82,6 @@ Plugin 'thinca/vim-quickrun'
 "---------------------------------------------------------
 Plugin 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -115,44 +110,6 @@ highlight Search term=bold,reverse ctermfg=15 ctermbg=233 gui=bold,reverse
 " Helpの日本語化
 Plugin 'vim-jp/vimdoc-ja'
 
-if has('lua') " lua 
-  Plugin 'Shougo/neocomplete.vim'     " コード自動補完
-  Plugin 'Shougo/neosnippet'          " スニペットの自動補完
-  Plugin 'Shougo/neosnippet-snippets' " スニペット集
-  Plugin 'Shougo/vimproc'
-  Plugin 'Shougo/neocomplcache'
-  Plugin 'Shougo/neocomplcache-rsense'
-
-  let g:neocomplete#enable_at_startup               = 1
-  let g:neocomplete#auto_completion_start_length    = 3
-  let g:neocomplete#enable_ignore_case              = 1
-  let g:neocomplete#enable_smart_case               = 1
-  let g:neocomplete#enable_camel_case               = 1
-  let g:neocomplete#use_vimproc                     = 1
-  let g:neocomplete#sources#buffer#cache_limit_size = 1000000
-  let g:neocomplete#sources#tags#cache_limit_size   = 30000000
-  let g:neocomplete#enable_fuzzy_completion         = 1
-  let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
-
-  let g:acp_enableAtStartup = 0
-  let g:neocomplcache_enable_at_startup = 1
-  let g:neocomplcache_enable_smart_case = 1
-  let g:neocomplcache_min_syntax_length = 3
-  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-  let g:neocomplcache_enable_camel_case_completion = 1
-  let g:neocomplcache_enable_underbar_completion = 1
-
-  if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-  endif
-  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  let g:rsenseHome = expand("~/.vim/bundle/rsense")
-  let g:rsenseUseOmniFunc = 1
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-endif
 "----------------------------------------
 " gxでweb検索
 "----------------------------------------
